@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RideUS Author Command Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rideBlue: "#073955",
+            rideDeep: "#041E2D",
+            rideTeal: "#00A99D",
+            rideYellow: "#FFC928",
+            rideLime: "#E2F560",
+            ink: "#10212B",
+            muted: "#667783"
+          },
+          boxShadow: {
+            ride: "0 24px 70px rgba(4, 30, 45, .22)",
+            glow: "0 0 44px rgba(0, 169, 157, .32)"
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="admin_web.css">
+</head>
+<body class="min-h-screen bg-[#eef7f8] text-ink">
+  <main class="relative overflow-hidden">
+    <section class="hero-shell relative min-h-[430px] overflow-hidden bg-rideDeep text-white">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_78%_10%,rgba(255,201,40,.35),transparent_28%),radial-gradient(circle_at_16%_22%,rgba(0,169,157,.28),transparent_26%)]"></div>
+      <div class="road-lines absolute bottom-0 left-0 right-0 h-28 opacity-80"></div>
+      <div class="relative mx-auto flex max-w-7xl flex-col gap-8 px-6 py-8 lg:flex-row lg:items-center lg:py-12">
+        <div class="flex-1">
+          <nav class="mb-12 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <div class="logo-badge">
+                <span class="logo-initials">RU</span>
+                <svg viewBox="0 0 120 88" aria-hidden="true" class="h-16 w-24">
+                  <use href="#rideus-scooter"></use>
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-black uppercase tracking-[.28em] text-rideYellow">RideUS Admin</p>
+                <h1 class="text-3xl font-black leading-none md:text-4xl">Command Center</h1>
+              </div>
+            </div>
+            <button id="refreshBtn" class="rounded-full bg-white px-5 py-3 text-sm font-black text-rideBlue shadow-glow transition hover:-translate-y-1 hover:bg-rideYellow">
+              Refresh Live Data
+            </button>
+          </nav>
+
+          <div class="max-w-3xl">
+            <p class="mb-4 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[.22em] text-rideLime">
+              Author website connected to user app
+            </p>
+            <h2 class="text-5xl font-black leading-[.95] md:text-7xl">
+              Manage riders, rides, support and AI insights.
+            </h2>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-white/78">
+              This is the real working admin side for RideUS. It reads users, bookings,
+              support requests and ML/AI insights directly from the FastAPI backend.
+            </p>
+          </div>
+        </div>
+
+        <aside class="glass-panel w-full max-w-md rounded-[2rem] p-5 shadow-ride">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-[.2em] text-rideYellow">Backend</p>
+              <p id="backendStatus" class="mt-1 text-lg font-black">Checking...</p>
+            </div>
+            <span id="dbBadge" class="rounded-full bg-white/14 px-4 py-2 text-sm font-black">DB</span>
+          </div>
+          <label class="mt-6 block text-sm font-bold text-white/75" for="apiBase">API Base URL</label>
+          <div class="mt-2 flex gap-2">
+            <input id="apiBase" class="w-full rounded-2xl border border-white/15 bg-white/12 px-4 py-3 text-sm font-bold text-white outline-none placeholder:text-white/40" value="http://127.0.0.1:8000">
+            <button id="saveApiBtn" class="rounded-2xl bg-rideYellow px-5 py-3 text-sm font-black text-rideBlue">Save</button>
+          </div>
+          <div class="relative mt-8 h-32 overflow-hidden rounded-3xl bg-white/10">
+            <div class="admin-road absolute bottom-5 left-0 right-0 h-8"></div>
+            <svg viewBox="0 0 120 88" aria-hidden="true" class="admin-scooter absolute bottom-4 h-24 w-32">
+              <use href="#rideus-scooter"></use>
+            </svg>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="relative mx-auto -mt-16 max-w-7xl px-6 pb-16">
+      <div id="errorBox" class="mb-6 hidden rounded-3xl border border-red-200 bg-red-50 p-5 text-sm font-bold text-red-700"></div>
+
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-7">
+        <article class="metric-card">
+          <p>Riders</p>
+          <strong id="metricUsers">0</strong>
+          <span>Total app profiles</span>
+        </article>
+        <article class="metric-card">
+          <p>Bookings</p>
+          <strong id="metricBookings">0</strong>
+          <span>All ride requests</span>
+        </article>
+        <article class="metric-card">
+          <p>Active Rides</p>
+          <strong id="metricActive">0</strong>
+          <span>Booked / accepted / ongoing</span>
+        </article>
+        <article class="metric-card">
+          <p>Revenue</p>
+          <strong id="metricRevenue">Rs 0</strong>
+          <span>Estimated fare total</span>
+        </article>
+        <article class="metric-card">
+          <p>Support</p>
+          <strong id="metricSupport">0</strong>
+          <span>User contact requests</span>
+        </article>
+        <article class="metric-card">
+          <p>Drivers</p>
+          <strong id="metricDrivers">0</strong>
+          <span id="metricAvailable">0 available</span>
+        </article>
+        <article class="metric-card">
+          <p>SOS</p>
+          <strong id="metricSos">0</strong>
+          <span>Open safety alerts</span>
+        </article>
+      </div>
+
+      <section class="dashboard-panel mt-7">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">RideUS fleet</p>
+            <h3>Realistic service vehicles</h3>
+          </div>
+          <span class="count-pill">Bike · Auto · Cab</span>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          <article class="fleet-card">
+            <img src="assets/rideus_bike.png" alt="RideUS Bike">
+            <div><strong>Bike</strong><span>Fast solo rides</span></div>
+          </article>
+          <article class="fleet-card">
+            <img src="assets/rideus_auto.png" alt="RideUS Auto">
+            <div><strong>Auto</strong><span>Everyday city rides</span></div>
+          </article>
+          <article class="fleet-card">
+            <img src="assets/rideus_cab.png" alt="RideUS Cab">
+            <div><strong>Cab</strong><span>Comfort travel</span></div>
+          </article>
+        </div>
+      </section>
+
+      <div class="mt-7 grid gap-7 xl:grid-cols-[1.15fr_.85fr]">
+        <section class="dashboard-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Live ride operations</p>
+              <h3>Recent Bookings</h3>
+            </div>
+            <span id="bookingCount" class="count-pill">0 records</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="ride-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Rider</th>
+                  <th>Route</th>
+                  <th>Type</th>
+                  <th>Fare</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="bookingsBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="dashboard-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">ML + AI</p>
+              <h3>RideUS Intelligence</h3>
+            </div>
+            <span id="topRideBadge" class="count-pill bg-rideBlue text-white">No rides</span>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="ai-card">
+              <p>Urgent Support</p>
+              <strong id="urgentSupport">0</strong>
+            </div>
+            <div class="ai-card">
+              <p>Average Fare</p>
+              <strong id="avgFare">Rs 0</strong>
+            </div>
+          </div>
+          <div class="mt-6">
+            <p class="text-sm font-black text-muted">Support categories</p>
+            <div id="supportBars" class="mt-4 space-y-3"></div>
+          </div>
+          <div class="mt-6 rounded-3xl bg-[#f3fbfc] p-4">
+            <p class="text-sm font-black text-muted">AI Recommendations</p>
+            <ul id="recommendations" class="mt-3 space-y-2 text-sm font-semibold leading-6 text-ink"></ul>
+          </div>
+        </section>
+      </div>
+
+      <div class="mt-7 grid gap-7 xl:grid-cols-2">
+        <section class="dashboard-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Rider database</p>
+              <h3>Users from App</h3>
+            </div>
+            <span id="userCount" class="count-pill">0 riders</span>
+          </div>
+          <div id="usersGrid" class="grid gap-4 md:grid-cols-2"></div>
+        </section>
+
+        <section class="dashboard-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Support inbox</p>
+              <h3>User Requests</h3>
+            </div>
+            <span id="contactCount" class="count-pill">0 messages</span>
+          </div>
+          <div id="contactsList" class="space-y-4"></div>
+        </section>
+      </div>
+
+      <div class="mt-7 grid gap-7 xl:grid-cols-2">
+        <section class="dashboard-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Captain network</p>
+              <h3>Drivers</h3>
+            </div>
+            <span id="driverCount" class="count-pill">0 drivers</span>
+          </div>
+          <div id="driversGrid" class="grid gap-4 md:grid-cols-2"></div>
+        </section>
+
+        <section class="dashboard-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Safety operations</p>
+              <h3>SOS Alerts</h3>
+            </div>
+            <span id="sosCount" class="count-pill">0 alerts</span>
+          </div>
+          <div id="sosList" class="space-y-4"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <svg class="hidden" aria-hidden="true">
+    <symbol id="rideus-scooter" viewBox="0 0 120 88">
+      <ellipse cx="60" cy="78" rx="50" ry="7" fill="rgba(0,0,0,.24)"></ellipse>
+      <path d="M6 33h24M2 46h30M11 58h21" stroke="rgba(255,255,255,.38)" stroke-width="4" stroke-linecap="round"></path>
+      <circle class="wheel" cx="32" cy="70" r="13" fill="#10212B"></circle>
+      <circle cx="32" cy="70" r="8" fill="#7B8D96"></circle>
+      <circle cx="32" cy="70" r="4" fill="#fff"></circle>
+      <circle class="wheel" cx="87" cy="70" r="13" fill="#10212B"></circle>
+      <circle cx="87" cy="70" r="8" fill="#7B8D96"></circle>
+      <circle cx="87" cy="70" r="4" fill="#fff"></circle>
+      <path d="M32 60 L58 40 L88 62" fill="none" stroke="#10212B" stroke-width="7" stroke-linecap="round"></path>
+      <path d="M41 37h39c10 0 18 8 18 18v5H34c0-10 7-19 7-23z" fill="#111F27"></path>
+      <path d="M42 49h35c5 0 9 4 9 9v2H42z" fill="#00A99D"></path>
+      <path d="M73 39h15c6 0 10 4 10 10v2H73z" fill="#FFC928"></path>
+      <path d="M75 31h17c4 0 7 3 7 7v3H75z" fill="rgba(255,255,255,.92)"></path>
+      <path d="M84 36 L99 18 L112 21" fill="none" stroke="#10212B" stroke-width="5" stroke-linecap="round"></path>
+      <circle cx="101" cy="49" r="4" fill="#fff"></circle>
+      <path d="M43 42h24" stroke="#FFC928" stroke-width="4" stroke-linecap="round"></path>
+    </symbol>
+  </svg>
+
+  <script src="admin_web.js"></script>
+</body>
+</html>

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rapido Landing Mockup</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app-free.js"></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Rapido home">
+        <span class="brand-mark">rapido</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a class="active" href="#" data-nav="home">Home</a>
+        <a href="#" data-nav="about">About Us</a>
+        <a href="#" data-nav="safety">Safety</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+        <a href="#">Press</a>
+        <a href="#" data-nav="contact">Contact Us</a>
+      </nav>
+
+      <a class="download-btn" href="#">Download App</a>
+    </header>
+
+    <!-- HOME PAGES -->
+    <div id="page-home">
+    <main class="hero">
+      <section class="hero-copy">
+        <p class="eyebrow">Ride simpler. Ride faster.</p>
+        <h1>India's #1<br />Ride-hailing App</h1>
+        <p class="subtext">Quick, affordable rides at your doorstep</p>
+
+        <form class="ride-form">
+          <label class="field">
+            <span class="icon pin" aria-hidden="true"></span>
+            <input id="pickupInput" type="text" placeholder="Enter Pickup Location" aria-label="Pickup location" autocomplete="off" />
+          </label>
+
+          <label class="field">
+            <span class="icon dot"></span>
+            <input id="dropInput" type="text" placeholder="Enter Drop Location" aria-label="Drop location" autocomplete="off" />
+          </label>
+
+          <button type="submit" class="book-btn">Book Ride</button>
+        </form>
+
+        <section class="result-card" aria-live="polite" aria-atomic="true">
+          <p class="result-title">Booking Summary</p>
+          <div class="result-grid">
+            <div>
+              <span class="result-label">Pickup</span>
+              <strong id="resultPickup">Enter a pickup location</strong>
+            </div>
+            <div>
+              <span class="result-label">Drop</span>
+              <strong id="resultDrop">Enter a drop location</strong>
+            </div>
+            <div>
+              <span class="result-label">Estimated Fare</span>
+              <strong id="resultFare">Rs 0</strong>
+            </div>
+            <div>
+              <span class="result-label">Service</span>
+              <strong id="resultService">Bike-Taxi</strong>
+            </div>
+            <div>
+              <span class="result-label">Distance</span>
+              <strong id="resultDistance">-- km</strong>
+            </div>
+            <div>
+              <span class="result-label">ETA</span>
+              <strong id="resultEta">-- min</strong>
+            </div>
+          </div>
+          <p class="result-note" id="resultNote">Fill the form and click Book Ride to see the result here.</p>
+        </section>
+      </section>
+
+      <section class="hero-visual" aria-label="Ride options illustration">
+        <div class="hero-image-frame">
+          <img
+            class="hero-image"
+            src="file:///C:/Users/kanuk/AppData/Local/Temp/codex-clipboard-07df9822-b1fb-49e5-bc5f-0ed58b7009ea.png"
+            alt="Rapido bike, auto, and cab"
+          />
+          <div class="visually-hidden" id="mapStatus">Location search and distance pricing are working in the background.</div>
+        </div>
+      </section>
+    </main>
+
+    <section class="services-section" id="services" aria-labelledby="servicesTitle">
+      <div class="services-inner">
+        <h2 id="servicesTitle">Our Services</h2>
+        <div class="services-rule"></div>
+
+        <div class="services-grid">
+          <button class="service-card active" type="button" data-service="Bike-Taxi">
+            <span class="service-copy">
+              <strong>Bike-Taxi</strong>
+              <span>Beat traffic, ride quicker</span>
+            </span>
+            <img class="service-image" src="assets/bike-taxi.png" alt="" aria-hidden="true" />
+          </button>
+
+          <button class="service-card" type="button" data-service="Auto">
+            <span class="service-copy">
+              <strong>Auto</strong>
+              <span>Everyday autos, made easy</span>
+            </span>
+            <img class="service-image" src="assets/auto.png" alt="" aria-hidden="true" />
+          </button>
+
+          <button class="service-card" type="button" data-service="Cab">
+            <span class="service-copy">
+              <strong>Cab</strong>
+              <span>Comfort for every journey</span>
+            </span>
+            <img class="service-image" src="assets/cab.png" alt="" aria-hidden="true" />
+          </button>
+
+          <button class="service-card" type="button" data-service="Parcel">
+            <span class="service-copy">
+              <strong>Parcel</strong>
+              <span>Quick, secure &amp; insured deliveries</span>
+            </span>
+            <img class="service-image" src="assets/parcel.png" alt="" aria-hidden="true" />
+          </button>
+
+          <button class="service-card" type="button" data-service="Travel and Stay">
+            <span class="service-copy">
+              <strong>Travel and Stay</strong>
+              <span>One app, entire journey</span>
+            </span>
+            <img class="service-image" src="assets/travel-stay.png" alt="" aria-hidden="true" />
+          </button>
+
+          <button class="service-card" type="button" data-service="Metro Ticket">
+            <span class="service-copy">
+              <strong>Metro Ticket</strong>
+              <span>Rides to and from the metro</span>
+            </span>
+            <img class="service-image" src="assets/metro-ticket.png" alt="" aria-hidden="true" />
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="offers-section" id="offers" aria-labelledby="offersTitle">
+      <div class="offers-inner">
+        <h2 id="offersTitle">What we offer</h2>
+        <div class="offers-rule"></div>
+
+        <div class="offers-grid">
+          <article class="offer-card">
+            <img src="assets/quick-pickup.png" alt="Driver arriving for a quick pickup" />
+            <h3>Quick Pickup</h3>
+            <p>Pickups within minutes that help you save time on every ride. A Rapido is always nearby when you need to get moving.</p>
+          </article>
+
+          <article class="offer-card">
+            <img src="assets/best-fares.png" alt="Phone showing fare estimate" />
+            <h3>Best Fares</h3>
+            <p>Affordable prices designed for everyday rides. Travel more, spend less without compromising on comfort.</p>
+          </article>
+
+          <article class="offer-card">
+            <img src="assets/never-too-far.png" alt="Bike taxi ride near public transport" />
+            <h3>Never Too Far</h3>
+            <p>Present across 400+ cities and counting. Wherever you go, find a Rapido ride close by.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="earn-section" id="earn" aria-labelledby="earnTitle">
+      <div class="earn-inner">
+        <img class="earn-image" src="assets/earn-with-rapido.png" alt="Rapido captains with bike, auto, and cab" />
+
+        <div class="earn-copy">
+          <h2 id="earnTitle">Earn with Rapido</h2>
+          <div class="earn-rule"></div>
+          <p>Become a Rapido Captain. Ride when you want, work how you want, and earn on your own terms.</p>
+          <a class="earn-btn" href="#services">Start Earning <span aria-hidden="true">-></span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DOWNLOAD NOW ===== -->
+    <section class="download-section" id="download">
+      <div class="download-inner">
+        <h2 class="download-title">Download Now</h2>
+        <div class="download-rule"></div>
+        <div class="download-cards">
+
+          <div class="download-card">
+            <div class="dcard-logo">
+              <span class="dcard-brand">rapido</span>
+            </div>
+            <div class="dcard-text">
+              <p>Bike-Taxi,</p>
+              <p>Auto &amp; Cabs</p>
+            </div>
+          </div>
+
+          <div class="download-card">
+            <div class="dcard-logo">
+              <span class="dcard-brand">rapido</span>
+              <span class="dcard-captain">Captain</span>
+            </div>
+            <div class="dcard-text">
+              <p>Drive &amp;</p>
+              <p>Earn</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- ===== END DOWNLOAD NOW ===== -->
+
+    </div><!-- /#page-home -->
+
+    <!-- ===== ABOUT US ===== -->
+    <div id="page-about">
+    <section class="about-section" id="about" aria-labelledby="aboutTitle">
+      <div class="about-inner">
+
+        <div class="about-copy">
+          <h2 id="aboutTitle">India's Beloved<br /><strong>Bike Taxi Service</strong></h2>
+
+          <div class="about-block">
+            <h3>We are not an option, we are a choice</h3>
+            <p>We're <span class="about-highlight">#1 choice of 10 Million</span> people because we're the solution of India's intra-city commuting problems. With assured safety, we also provide economically priced rides.</p>
+          </div>
+
+          <div class="about-block">
+            <h3>What makes us different?</h3>
+            <p class="about-diff">Our bike taxis can dodge the traffic during peak hours and get you to the destination in a jiffy! So when you think travel, think Rapido.</p>
+          </div>
+        </div>
+
+        <div class="about-visual">
+          <div class="about-img-small">
+            <img src="assets/about-rider-girl.png" alt="Rapido rider on bike" />
+          </div>
+          <div class="about-img-tall">
+            <img src="assets/about-phone-guy.png" alt="Person pointing at Rapido app" />
+          </div>
+          <div class="about-yellow-bar"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== CHAMPIONS SECTION ===== -->
+    <section class="champions-section">
+      <div class="champions-inner">
+        <div class="champions-blob"></div>
+
+        <div class="champions-copy">
+          <h2>Champions of our success story</h2>
+          <div class="champions-rule"></div>
+          <p>Rapido has come a long way ever since its inception in 2015. With a lot of hardwork and perseverance we have made a place for ourselves in the market. As a brand and as a service, it is our constant endeavour to redefine ourselves.</p>
+        </div>
+
+      </div>
+    </section>
+    <!-- ===== END CHAMPIONS ===== -->
+
+    <!-- ===== JOBS BANNER ===== -->
+    <section class="jobs-section">
+      <div class="jobs-overlay"></div>
+      <img class="jobs-bg" src="assets/jobs-banner.png" alt="Rapido team" />
+      <div class="jobs-content">
+        <h2>Jobs @ Rapido</h2>
+        <p>Join us in exploring a world of endless opportunities. Let's find a spot for you.</p>
+        <a class="jobs-btn" href="#">Work with us</a>
+      </div>
+    </section>
+    <!-- ===== END JOBS BANNER ===== -->
+
+    <!-- ===== END ABOUT US ===== -->
+    </div><!-- /#page-about -->
+
+    <!-- SAFETY PAGE -->
+    <div id="page-safety" class="safety-page">
+      <nav class="safety-tabs" aria-label="Safety sections">
+        <a class="active" href="#safetyOverview">Overviews</a>
+        <a href="#safetyCustomers">Customers</a>
+        <a href="#safetyCaptains">Captains</a>
+      </nav>
+
+      <section class="safety-overview" id="safetyOverview" aria-labelledby="safetyTitle">
+        <h2 id="safetyTitle" class="visually-hidden">Safety for all</h2>
+        <img src="assets/safety_1.png" alt="Safety for all at Rapido" />
+      </section>
+
+      <section class="safety-audience" aria-label="Safety information for customers and captains">
+        <article class="safety-info-card" id="safetyCustomers">
+          <img src="assets/safety_2.png" alt="Customer using phone for a Rapido ride" />
+          <h3>For Customers</h3>
+          <p>Every ride is tracked by Rapido, with access to granular latitudinal and longitudinal data.</p>
+          <a href="#safetyMeasures">Know More</a>
+        </article>
+
+        <article class="safety-info-card" id="safetyCaptains">
+          <img src="assets/safety_3.png" alt="Rapido captain riding safely" />
+          <h3>For Captains</h3>
+          <p>From hiring to training to monitoring to ongoing checks, we take all necessary steps to ensure our Captains safety.</p>
+          <a href="#safetyMeasures">Know More</a>
+        </article>
+      </section>
+
+      <section class="safety-measures" id="safetyMeasures" aria-label="Rapido safety measures">
+        <img src="assets/safety_4.png" alt="Measures to ensure the well-being of Captains and Customers" />
+      </section>
+
+      <section class="safety-forward" aria-labelledby="safetyForwardTitle">
+        <h2 id="safetyForwardTitle">Way forward on Safety</h2>
+        <p>To further substantiate our commitment to Safety First towards customers &amp; captains, we will be incorporating new features on our platform very soon.</p>
+        <a href="#safetyMeasures">Know More <span aria-hidden="true">&darr;</span></a>
+      </section>
+    </div><!-- /#page-safety -->
+
+    <!-- CONTACT PAGE -->
+    <div id="page-contact">
+    <section class="contact-section" id="contact" aria-labelledby="contactTitle">
+      <div class="contact-inner">
+        <div class="contact-copy">
+          <h2 id="contactTitle">You can find us here</h2>
+          <p class="contact-subtitle">Find help for your queries here:</p>
+
+          <form class="contact-form" novalidate>
+            <label>
+              <span>Name <b>*</b></span>
+              <input id="contactName" name="name" type="text" placeholder="Enter your name" required />
+            </label>
+
+            <label>
+              <span>Email Address <b>*</b></span>
+              <input id="contactEmail" name="email" type="email" placeholder="Enter your email" required />
+            </label>
+
+            <label>
+              <span>Mobile Number <b>*</b></span>
+              <input id="contactMobile" name="mobile" type="tel" placeholder="Enter your mobile number" required />
+            </label>
+
+            <label>
+              <span>You are a <b>*</b></span>
+              <select id="contactType" name="type" required>
+                <option value="">-select-</option>
+                <option value="Customer">Customer</option>
+                <option value="Captain">Captain</option>
+                <option value="Business partner">Business partner</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Comment <b>*</b></span>
+              <textarea id="contactComment" name="comment" placeholder="Enter your comment" required></textarea>
+            </label>
+
+            <button type="submit">Submit</button>
+            <p class="contact-status" id="contactStatus" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <aside class="contact-addresses" aria-label="Office addresses">
+          <div class="dot-pattern" aria-hidden="true"></div>
+
+          <div class="address-block">
+            <h3>Registered Office Address:</h3>
+            <p>Roppen Transportation Services Pvt Ltd, 3rd Floor, Sai Prithvi Arcade, Megha Hills, Sri Rama Colony, Madhapur, Hyderabad - 500081.</p>
+            <p>CIN:U52210TG2015PTC097115</p>
+          </div>
+
+          <div class="address-block">
+            <h3>City Office:</h3>
+            <p>Rapido office, 648, 1st Main Rd, Muneswara Nagar, Sector 6, HSR Layout, Bengaluru, Karnataka 560102</p>
+          </div>
+
+          <div class="address-block">
+            <h3>Corporate Office:</h3>
+            <p>Mantri Commercio - Spatium Tower A, Sy No 51/2, 51/3, 51/4, Of Devarabeesanahalli Village And Hjem 39/5 Of Kariyammana Agrahara Village Varthur Hobli, Bangalore East Taluk, Bangalore.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="site-footer" id="footer">
+      <div class="footer-inner">
+        <div class="footer-apps">
+          <div>
+            <h3>Customer app</h3>
+            <a class="store-badge" href="#">Get it on<br /><strong>Google Play</strong></a>
+            <a class="store-badge" href="#">Download on the<br /><strong>App Store</strong></a>
+          </div>
+          <div>
+            <h3>Captain app</h3>
+            <a class="store-badge" href="#">Get it on<br /><strong>Google Play</strong></a>
+          </div>
+        </div>
+
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="#" data-nav="home">Home</a>
+          <a href="#" data-nav="about">About Us</a>
+          <a href="#">Careers</a>
+          <a href="#" data-nav="safety">Safety</a>
+          <a href="#">Blog</a>
+          <a href="#">Press</a>
+          <a href="#">Privacy Policy</a>
+        </nav>
+
+        <nav class="footer-terms" aria-label="Terms links">
+          <a href="#">Customer Terms - Bike Taxi</a>
+          <a href="#">Customer Terms - Cabs and Auto</a>
+          <a href="#">Corporate Affairs</a>
+          <a href="#">Captain Terms - Bike Taxi</a>
+          <a href="#">Captain Terms - Cabs and Auto</a>
+        </nav>
+
+        <div class="footer-social">
+          <h3>Follow Us</h3>
+          <div class="social-row">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Twitter">t</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Instagram">ig</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="footer-copy">© 2026 Roppen Transportation. All rights reserved.</p>
+    </footer>
+    </div><!-- /#page-contact -->
+
+    <!-- FOOTER always visible on home -->
+    <footer class="site-footer home-footer" id="home-footer">
+      <div class="footer-inner">
+        <div class="footer-apps">
+          <div>
+            <h3>Customer app</h3>
+            <a class="store-badge" href="#">Get it on<br /><strong>Google Play</strong></a>
+            <a class="store-badge" href="#">Download on the<br /><strong>App Store</strong></a>
+          </div>
+          <div>
+            <h3>Captain app</h3>
+            <a class="store-badge" href="#">Get it on<br /><strong>Google Play</strong></a>
+          </div>
+        </div>
+        <nav class="footer-links" aria-label="Footer links">
+          <a href="#" data-nav="home">Home</a>
+          <a href="#" data-nav="about">About Us</a>
+          <a href="#">Careers</a>
+          <a href="#" data-nav="safety">Safety</a>
+          <a href="#">Blog</a>
+          <a href="#">Press</a>
+          <a href="#">Privacy Policy</a>
+        </nav>
+        <nav class="footer-terms" aria-label="Terms links">
+          <a href="#">Customer Terms - Bike Taxi</a>
+          <a href="#">Customer Terms - Cabs and Auto</a>
+          <a href="#">Corporate Affairs</a>
+          <a href="#">Captain Terms - Bike Taxi</a>
+          <a href="#">Captain Terms - Cabs and Auto</a>
+        </nav>
+        <div class="footer-social">
+          <h3>Follow Us</h3>
+          <div class="social-row">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Twitter">t</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Instagram">ig</a>
+          </div>
+        </div>
+      </div>
+      <p class="footer-copy">© 2026 Roppen Transportation. All rights reserved.</p>
+    </footer>
+
+  </div>
+</body>
+</html>
